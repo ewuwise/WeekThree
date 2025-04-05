@@ -1,0 +1,36 @@
+:root {
+  /* Original variables kept for compatibility */
+  --primary-color: #3a86ff;
+  --dark-bg: #1a1a2e;
+  --primary-gradient: linear-gradient(to right, #8B5CF6, #6366F1);
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --transition: all 0.3s ease;
+
+  /* New color variables */
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --primary-light: #3b82f6;
+  --secondary: #9333ea;
+  --secondary-dark: #7e22ce;
+  --secondary-light: #a855f7;
+  --accent: #f59e0b;
+  --accent-dark: #d97706;
+  --accent-light: #fbbf24;
+  --dark: #1e293b;
+  --light: #f8fafc;
+  --gray: #64748b;
+  --gray-light: #e2e8f0;
+  --gray-dark: #334155;
+
+  /* New gradients */
+  --gradient-primary: linear-gradient(to right, var(--primary), var(--primary-light));
+  --gradient-secondary: linear-gradient(to right, var(--secondary), var(--secondary-light));
+  --gradient-accent: linear-gradient(to right, var(--accent), var(--accent-light));
+
+  /* New shadows */
+  --shadow-primary: 0 4px 6px -1px rgba(37, 99, 235, 0.1), 0 2px 4px -1px rgba(37, 99, 235, 0.06);
+  --shadow-secondary: 0 4px 6px -1px rgba(147, 51, 234, 0.1), 0 2px 4px -1px rgba(147, 51, 234, 0.06);
+  --shadow-accent: 0 4px 6px -1px rgba(245, 158, 11, 0.1), 0 2px 4px -1px rgba(245, 158, 11, 0.06);
+}

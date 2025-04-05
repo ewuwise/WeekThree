@@ -1,0 +1,15 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} !=on
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+<FilesMatch "\.(html|css|js)$">
+  FileETag None
+  Header unset ETag
+  Header set Cache-Control "max-age=86400, public"
+</FilesMatch>
+
+<FilesMatch "favicon\.(ico|png|webmanifest)$">
+    Header set Cache-Control "max-age=31536000, public"
+</FilesMatch>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMTverse | Multi-Blockchain Burn & Mint</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/web3/dist/web3.min.js"></script>
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <header>
+        <h1>BMTverse</h1>
+        <nav>
+            <ul>
+                <li><a href="#burn">Burn</a></li>
+                <li><a href="#mint">Mint</a></li>
+                <li><a href="#rewards">Rewards</a></li>
+                <li><a href="#marketplace">Marketplace</a></li>
+                <li><a href="#analytics">Analytics</a></li>
+                <li><a href="#ai-predictions">AI Predictions</a></li>
+                <li><a href="#connect-wallet">Connect Wallet</a></li>
+                <li><a href="#new-feature">New Feature</a></li>
+                <li><a href="#enhanced-features">Enhanced Features</a></li> <!-- New section link -->
+                <li><a href="#user-journey">User Journey</a></li> <!-- New section link -->
+            </ul>
+        </nav>
+    </header>
+    
+    <section id="connect-wallet">
+        <h2>Connect Your Wallet</h2>
+        <button id="connect-btn" onclick="connectWallet()">Connect</button>
+        <p id="wallet-status">Not Connected</p>
+    </section>
+    
+    <section id="burn">
+        <h2>Burn Tokens</h2>
+        <input type="number" id="burnAmount" placeholder="Enter amount">
+        <button onclick="burnTokens()">Burn</button>
+        <p id="burn-status"></p>
+    </section>
+    
+    <section id="mint">
+        <h2>Mint Tokens</h2>
+        <input type="number" id="mintAmount" placeholder="Enter amount">
+        <button onclick="mintTokens()">Mint</button>
+        <p id="mint-status"></p>
+    </section>
+    
+    <section id="rewards">
+        <h2>Your Rewards</h2>
+        <button onclick="calculateRewards()">Check Rewards</button>
+        <p id="reward-amount">0 BMT</p>
+    </section>
+    
+    <section id="marketplace">
+        <h2>Decentralized Marketplace</h2>
+        <p>Trade assets securely with multi-blockchain support.</p>
+        <button onclick="openMarketplace()">Enter Marketplace</button>
+    </section>
+    
+    <section id="analytics">
+        <h2>Blockchain Analytics</h2>
+        <p>Track live transactions, burn rate, and market trends.</p>
+        <button onclick="viewAnalytics()">View Analytics</button>
+    </section>
+    
+    <section id="ai-predictions">
+        <h2>AI Market Predictions</h2>
+        <p>Leverage AI to forecast token trends, burn impacts, and earning potential.</p>
+        <button onclick="getAIPredictions()">View Predictions</button>
+        <p id="prediction-output">Awaiting AI insights...</p>
+    </section>
+
+    <section id="new-feature">
+        <h2>New Feature</h2>
+        <p>Details about the new feature will go here.</p>
+    </section>
+    
+    <footer>
+        <p>&copy; 2025 BMTverse. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        async function connectWallet() {
+            if (typeof window.ethereum !== 'undefined') {
+                try {
+                    await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    document.getElementById('wallet-status').innerText = 'Connected';
+                    fetchLiveETHPrice(); // Fetch price after connecting
+                } catch (error) {
+                    document.getElementById('wallet-status').innerText = 'Connection failed: ' + error.message;
+                }
+            } else {
+                document.getElementById('wallet-status').innerText = 'MetaMask is not installed. Please install it to use this feature.';
+            }
+        }
+    </script>
+</body>
+</html>

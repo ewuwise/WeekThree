@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Security Headers -->
+    <meta http-equiv="Content-Security-Policy" 
+          content="default-src 'self' 'unsafe-eval'; 
+                   script-src 'self' 'unsafe-eval' https://cdn.jsdelivr.net https://unpkg.com; 
+                   style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com; 
+                   img-src 'self' data: https://*;
+                   connect-src 'self' https://*;
+                   frame-src 'self' https://*;">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <title>BMTverse | Multi-Chain Token Ecosystem</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0/dist/themes/dark.css">
+    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0/dist/shoelace.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.18.0/dist/tf.min.js"></script>
+
+</head>
+<body>
+    <div class="hero-section">
+        <img src="images/hero-bg.jpg" alt="BMTverse" loading="lazy">
+        <div class="hero-content">
+            <h1><span class="logo-gradient">BMT</span>verse</h1>
+            <p class="hero-tagline">Multi-Chain Token Ecosystem</p>
+        </div>
+    </div>
+    <header>
+        <h1><span class="logo-gradient">BMT</span>verse</h1>
+        <div class="header-controls">
+            <sl-button variant="neutral" id="theme-toggle">
+                <sl-icon name="moon"></sl-icon>
+            </sl-button>
+            <sl-button variant="primary" id="connect-btn">Connect Wallet</sl-button>
+        </div>
+
+
+        <nav>
+            <sl-tab-group>
+                <sl-tab slot="nav" panel="burn">Burn</sl-tab>
+                <sl-tab slot="nav" panel="mint">Mint</sl-tab>
+                <sl-tab slot="nav" panel="rewards">Rewards</sl-tab>
+                <sl-tab slot="nav" panel="marketplace">Marketplace</sl-tab>
+                <sl-tab slot="nav" panel="analytics">Analytics</sl-tab>
+                <sl-tab slot="nav" panel="ai">AI Predictions</sl-tab>
+                <sl-tab slot="nav" panel="bridge">Cross-Chain</sl-tab>
+            </sl-tab-group>
+
+        </nav>
+    </header>
+
+    <main>
+        <sl-tab-panel name="burn">
+            <!-- Burn interface with advanced features -->
+        </sl-tab-panel>
+        
+        <sl-tab-panel name="marketplace">
+            <div class="marketplace-grid" id="nft-marketplace">
+                <!-- Dynamically loaded -->
+            </div>
+        </sl-tab-panel>
+        
+        <sl-tab-panel name="ai">
+            <div class="ai-dashboard">
+                <div class="prediction-card">
+                    <h3>AI Recommendations</h3>
+                    <div id="ai-output"></div>
+                    <sl-button variant="primary" id="refresh-predictions">Refresh</sl-button>
+                </div>
+                <canvas id="price-prediction-chart"></canvas>
+            </div>
+        </sl-tab-panel>
+        
+        <sl-tab-panel name="bridge">
+            <div class="bridge-interface">
+                <!-- Cross-chain bridge UI -->
+            </div>
+        </sl-tab-panel>
+
+
+    </main>
+
+        <section id="roadmap">
+            <h2>Roadmap</h2>
+            <h3>Phase 1: MVP Development (1-2 Months)</h3>
+            <p>Deploy smart contracts on Goerli testnet and launch the BMTverse.io landing page with enhanced features.</p>
+            <h3>Phase 2: Beta Testing (3-4 Months)</h3>
+            <p>Conduct closed beta testing with 100-200 users.</p>
+            <h3>Phase 3: Public Launch (5-6 Months)</h3>
+            <p>Host a Global Burn Event and enable cross-chain burns.</p>
+        </section>
+        <section id="tokenomics">
+            <h2>Tokenomics</h2>
+            <p>Token distribution, revenue model, and sustainability strategies will ensure the long-term success of BMTverse.io.</p>
+        </section>
+        <section id="contact">
+            <h2>Get in Touch</h2>
+            <p>Email: <a href="mailto:info@bmtverse.io">info@bmtverse.io</a></p>
+            <p>Follow us on social media:</p>
+            <ul>
+                <li><a href="#" target="_blank">Twitter</a></li>
+                <li><a href="#" target="_blank">LinkedIn</a></li>
+                <li><a href="#" target="_blank">Facebook</a></li>
+            </ul>
+        </section>
+
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMTverse.io - Burn. Mint. Grow.</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.8.0/dist/web3.min.js"></script>
+    <style>
+        :root {
+            --primary: #3498db;
+            --secondary: #2ecc71;
+            --dark: #2c3e50;
+            --light: #ecf0f1;
+        }
+        
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--light);
+            color: var(--dark);
+            transition: all 0.3s;
+        }
+        
+        body.dark-mode {
+            background-color: #121212;
+            color: var(--light);
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background-color: var(--dark);
+            color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        nav a {
+            color: white;
+            margin: 0 1rem;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        nav a:hover {
+            color: var(--secondary);
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 3rem 5%;
+            background: linear-gradient(135deg, var(--dark), #34495e);
+            color: white;
+        }
+        
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem 5%;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .dark-mode .card {
+            background: #1e1e1e;
+            color: white;
+        }
+        
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+            transform: scale(1.02);
+        }
+        
+        input {
+            padding: 0.6rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 100%;
+            margin: 0.5rem 0;
+        }
+        
+        .theme-toggle {
+            background: none;
+            border: 2px solid white;
+            margin-left: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">BMTverse.io</div>
+        <nav>
+            <a href="#dashboard">Dashboard</a>
+            <a href="#burn">Burn Portal</a>
+            <a href="#governance">Governance</a>
+            <a href="#defi">DeFi</a>
+            <button id="connectWallet">Connect Wallet</button>
+            <button id="themeToggle" class="theme-toggle">🌓</button>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Burn. Mint. Grow.</h1>
+        <p>The next evolution of tokenomics with AI-driven burn mechanics</p>
+    </section>
+
+    <section class="dashboard" id="dashboard">
+        <div class="card">
+            <h2>Token Metrics</h2>
+            <div class="metrics">
+                <p>Total Burned: <span id="totalBurned">1,245,890</span> BMT</p>
+                <p>Total Minted: <span id="totalMinted">623,945</span> BMT</p>
+                <p>Current Burn Rate: <span id="burnRate">10</span>%</p>
+            </div>
+            <canvas id="supplyChart" height="200"></canvas>
+        </div>
+
+        <div class="card">
+            <h2>Burn Simulator</h2>
+            <input type="number" id="burnAmount" placeholder="Enter BMT amount to burn">
+            <button id="simulateBurn">Simulate Burn</button>
+            <div id="simulationResults">
+                <p>Estimated Mint Reward: <span id="mintReward">0</span> BMT</p>
+                <p>New Burn Rate: <span id="newBurnRate">10</span>%</p>
+                <canvas id="rewardChart" height="200"></canvas>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Governance Feed</h2>
+            <div class="proposals">
+                <div class="proposal">
+                    <h3>Proposal #12: Increase Burn Rate to 15%</h3>
+                    <p>Status: <span class="status voting">Voting</span></p>
+                    <button class="vote-btn" data-id="12">Vote Now</button>
+                </div>
+                <div class="proposal">
+                    <h3>Proposal #11: Add New DeFi Pool</h3>
+                    <p>Status: <span class="status passed">Passed</span></p>
+                </div>
+            </div>
+            <button id="viewAllProposals">View All Proposals</button>
+        </div>
+    </section>
+
+    <script>
+        // Theme Toggle
+        document.getElementById('themeToggle').addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+        });
+
+        // Connect Wallet
+        document.getElementById('connectWallet').addEventListener('click', async () => {
+            if (window.ethereum) {
+                try {
+                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    document.getElementById('connectWallet').textContent = `${accounts[0].slice(0,6)}...${accounts[0].slice(-4)}`;
+                    alert('Wallet connected successfully!');
+                    // Initialize Web3
+                    const web3 = new Web3(window.ethereum);
+                    // Load smart contract ABI and address here
+                } catch (error) {
+                    console.error(error);
+                }
+            } else {
+                alert('Please install MetaMask!');
+            }
+        });
+
+        // Burn Simulator
+        document.getElementById('simulateBurn').addEventListener('click', () => {
+            const burnAmount = parseFloat(document.getElementById('burnAmount').value);
+            if (isNaN(burnAmount)) {
+                alert('Please enter a valid amount');
+                return;
+            }
+
+            // Simulate dynamic burn rate adjustment
+            const currentBurnRate = 10; // Base 10%
+            const newBurnRate = Math.min(20, currentBurnRate + (burnAmount / 10000));
+            
+            // Calculate mint reward (5% of burned amount)
+            const mintReward = burnAmount * 0.05;
+            
+            // Update UI
+            document.getElementById('mintReward').textContent = mintReward.toFixed(2);
+            document.getElementById('newBurnRate').textContent = newBurnRate.toFixed(2);
+            
+            // Update charts
+            updateRewardChart(burnAmount, mintReward);
+        });
+
+        // Initialize Charts
+        const supplyCtx = document.getElementById('supplyChart').getContext('2d');
+        const supplyChart = new Chart(supplyCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Burned', 'Minted', 'Circulating'],
+                datasets: [{
+                    data: [1245890, 623945, 5000000],
+                    backgroundColor: [
+                        '#e74c3c',
+                        '#2ecc71',
+                        '#3498db'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+
+        const rewardCtx = document.getElementById('rewardChart').getContext('2d');
+        let rewardChart = new Chart(rewardCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Burned', 'Reward'],
+                datasets: [{
+                    label: 'BMT Tokens',
+                    data: [0, 0],
+                    backgroundColor: [
+                        '#e74c3c',
+                        '#2ecc71'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        function updateRewardChart(burned, reward) {
+            rewardChart.data.datasets[0].data = [burned, reward];
+            rewardChart.update();
+        }
+
+        // Simulate live data updates
+        setInterval(() => {
+            // Simulate small fluctuations in burned/minted amounts
+            const burnedElement = document.getElementById('totalBurned');
+            const mintedElement = document.getElementById('totalMinted');
+            
+            let burned = parseInt(burnedElement.textContent.replace(/,/g, ''));
+            let minted = parseInt(mintedElement.textContent.replace(/,/g, ''));
+            
+            burned += Math.floor(Math.random() * 100);
+            minted += Math.floor(Math.random() * 50);
+            
+            burnedElement.textContent = burned.toLocaleString();
+            mintedElement.textContent = minted.toLocaleString();
+            
+            // Update doughnut chart
+            supplyChart.data.datasets[0].data = [burned, minted, 5000000 - burned + minted];
+            supplyChart.update();
+        }, 3000);
+    </script>
+</body>
+</html>

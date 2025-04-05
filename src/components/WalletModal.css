@@ -1,0 +1,65 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: #1e1e1e;
+  border-radius: 8px;
+  padding: 20px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 80vh;
+  overflow-y: auto;
+  color: white;
+}
+
+.modal h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.wallet-info {
+  margin-bottom: 20px;
+}
+
+.wallet-info p {
+  word-break: break-all;
+  font-family: monospace;
+  margin: 10px 0;
+}
+
+button {
+  padding: 8px 16px;
+  background: #3a3a3a;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin: 5px;
+}
+
+button:hover {
+  background: #4a4a4a;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* MessageSigner integration styles */
+.message-signer {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #333;
+}

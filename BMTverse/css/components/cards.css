@@ -1,0 +1,12 @@
+.feature-card {
+  transition: var(--transition);
+  border: 1px solid transparent;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--primary-light);
+}
